@@ -2,43 +2,78 @@
 <!DOCTYPE html>
 <html lang="id">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Finance App - Pacific Inter Teknologi</title>
+  <meta charset="UTF-8">
+  <title>Invoice Penjualan - Pacific Inter Teknologi</title>
   <style>
-    body {
-      font-family: Arial, sans-serif;
-      background: #f5f5f5;
-      margin: 0;
-      padding: 2rem;
+    body { font-family: Arial, sans-serif; margin: 40px; background: #f7f7f7; }
+    .invoice-box {
+      background: #fff; padding: 20px; border: 1px solid #ccc;
+      max-width: 800px; margin: auto; box-shadow: 0 0 10px rgba(0,0,0,0.15);
     }
-    h1 {
-      color: #003366;
-    }
-    .card {
-      background: white;
-      padding: 2rem;
-      border-radius: 10px;
-      box-shadow: 0 0 10px rgba(0,0,0,0.1);
-      max-width: 600px;
-      margin: auto;
-    }
-    footer {
-      text-align: center;
-      margin-top: 2rem;
-      font-size: 0.9rem;
-      color: #777;
+    h2 { text-align: center; color: #003366; }
+    label { display: block; margin-top: 10px; }
+    input, textarea {
+      width: 100%; padding: 8px; margin-top: 5px;
+      box-sizing: border-box;
     }
   </style>
 </head>
 <body>
-  <div class="card">
-    <h1>Form Invoice (dalam pengembangan)</h1>
-    <p>Selamat datang di aplikasi keuangan Pacific Inter Teknologi.</p>
-    <p>Fitur akan segera ditambahkan.</p>
+  <div class="invoice-box">
+    <h2>Invoice Penjualan</h2>
+    <form>
+      <label for="invoiceNumber">Nomor Invoice:</label>
+      <input type="text" id="invoiceNumber" name="invoiceNumber" readonly>
+
+      <label for="tanggal">Tanggal:</label>
+      <input type="date" id="tanggal" name="tanggal" required>
+
+      <label for="namaCustomer">Nama Customer:</label>
+      <input type="text" id="namaCustomer" name="namaCustomer">
+
+      <label for="item">Item:</label>
+      <textarea id="item" name="item" rows="3"></textarea>
+
+      <label for="total">Total (Rp):</label>
+      <input type="number" id="total" name="total">
+
+      <label for="rekening">Pembayaran ke Rekening:</label>
+      <select id="rekening">
+        <option value="BCA - 1234567890">BCA - 1234567890</option>
+        <option value="Mandiri - 0987654321">Mandiri - 0987654321</option>
+        <option value="Tambah Baru">+ Tambah Rekening Baru</option>
+      </select>
+      <input type="text" id="rekeningBaru" placeholder="Masukkan rekening baru" style="display:none;">
+
+      <br><br>
+      <button type="submit">Simpan Invoice</button>
+    </form>
   </div>
-  <footer>
-    &copy; 2025 Pacific Inter Teknologi
-  </footer>
+
+  <script>
+    document.addEventListener("DOMContentLoaded", function () {
+      const tahun = new Date().getFullYear();
+      const key = "invoiceNumber_" + tahun;
+      let nomorTerakhir = localStorage.getItem(key);
+      if (!nomorTerakhir) {
+        nomorTerakhir = 1;
+      } else {
+        nomorTerakhir = parseInt(nomorTerakhir) + 1;
+      }
+      const nomorInvoice = "INV-" + tahun + "-" + String(nomorTerakhir).padStart(3, "0");
+      document.getElementById("invoiceNumber").value = nomorInvoice;
+      localStorage.setItem(key, nomorTerakhir);
+
+      const rekeningSelect = document.getElementById("rekening");
+      const rekeningBaru = document.getElementById("rekeningBaru");
+      rekeningSelect.addEventListener("change", function() {
+        if (this.value === "Tambah Baru") {
+          rekeningBaru.style.display = "block";
+        } else {
+          rekeningBaru.style.display = "none";
+        }
+      });
+    });
+  </script>
 </body>
 </html>
