@@ -1,79 +1,19 @@
-
 <!DOCTYPE html>
 <html lang="id">
 <head>
-  <meta charset="UTF-8">
-  <title>Invoice Penjualan - Pacific Inter Teknologi</title>
-  <style>
-    body { font-family: Arial, sans-serif; margin: 40px; background: #f7f7f7; }
-    .invoice-box {
-      background: #fff; padding: 20px; border: 1px solid #ccc;
-      max-width: 800px; margin: auto; box-shadow: 0 0 10px rgba(0,0,0,0.15);
-    }
-    h2 { text-align: center; color: #003366; }
-    label { display: block; margin-top: 10px; }
-    input, textarea {
-      width: 100%; padding: 8px; margin-top: 5px;
-      box-sizing: border-box;
-    }
-  </style>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <title>Aplikasi Keuangan</title>
+    <link href="style.css" rel="stylesheet" />
 </head>
 <body>
-  <div class="invoice-box">
-    <h2>Invoice Penjualan</h2>
-    <form>
-      <label for="invoiceNumber">Nomor Invoice:</label>
-      <input type="text" id="invoiceNumber" name="invoiceNumber" readonly>
-
-      <label for="tanggal">Tanggal:</label>
-      <input type="date" id="tanggal" name="tanggal" required>
-
-      <label for="namaCustomer">Nama Customer:</label>
-      <input type="text" id="namaCustomer" name="namaCustomer">
-
-      <label for="item">Item:</label>
-      <textarea id="item" name="item" rows="3"></textarea>
-
-      <label for="total">Total (Rp):</label>
-      <input type="number" id="total" name="total">
-
-      <label for="rekening">Pembayaran ke Rekening:</label>
-      <select id="rekening">
-        <option value="BCA - 1234567890">BCA - 1234567890</option>
-        <option value="Mandiri - 0987654321">Mandiri - 0987654321</option>
-        <option value="Tambah Baru">+ Tambah Rekening Baru</option>
-      </select>
-      <input type="text" id="rekeningBaru" placeholder="Masukkan rekening baru" style="display:none;">
-
-      <br><br>
-      <button type="submit">Simpan Invoice</button>
-    </form>
-  </div>
-
-  <script>
-    document.addEventListener("DOMContentLoaded", function () {
-      const tahun = new Date().getFullYear();
-      const key = "invoiceNumber_" + tahun;
-      let nomorTerakhir = localStorage.getItem(key);
-      if (!nomorTerakhir) {
-        nomorTerakhir = 1;
-      } else {
-        nomorTerakhir = parseInt(nomorTerakhir) + 1;
-      }
-      const nomorInvoice = "INV-" + tahun + "-" + String(nomorTerakhir).padStart(3, "0");
-      document.getElementById("invoiceNumber").value = nomorInvoice;
-      localStorage.setItem(key, nomorTerakhir);
-
-      const rekeningSelect = document.getElementById("rekening");
-      const rekeningBaru = document.getElementById("rekeningBaru");
-      rekeningSelect.addEventListener("change", function() {
-        if (this.value === "Tambah Baru") {
-          rekeningBaru.style.display = "block";
-        } else {
-          rekeningBaru.style.display = "none";
-        }
-      });
-    });
-  </script>
+    <h1>Aplikasi Keuangan - Pacific Inter Teknologi</h1>
+    <p>Silakan pilih menu dari aplikasi ini untuk mencatat pemasukan, pengeluaran, membuat invoice, dan melihat laporan keuangan.</p>
+    <ul>
+        <li><a href="pemasukan.html">Pemasukan</a></li>
+        <li><a href="pengeluaran.html">Pengeluaran</a></li>
+        <li><a href="invoice.html">Invoice</a></li>
+        <li><a href="laporan.html">Laporan Keuangan</a></li>
+    </ul>
 </body>
 </html>
